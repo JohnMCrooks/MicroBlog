@@ -9,4 +9,13 @@ public class Message {
     public Message(String msgContent) {
         this.msgContent = msgContent;
     }
+
+    @Override
+    public String toString() {
+        return  msgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
+    }
 }

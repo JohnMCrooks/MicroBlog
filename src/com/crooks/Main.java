@@ -26,7 +26,8 @@ public class Main {
                     } else{
                         m.put("name", user.username);
                         m.put("password",user.password);
-                        m.put("messages", msgArray.toString());
+                        m.put("messages",msgArray);
+                        m.put("msgContent", m1);
                         return new ModelAndView(m, "messages.html");
                     }
                 },
@@ -43,15 +44,16 @@ public class Main {
                     response.redirect("/");
                     return "";
 
-
                 }
         );
+
 
         Spark.post(
                 "/create-message",
                 (request, response) -> {
-                    String message = request.queryParams("message");
-                    msgArray.add(m1);
+                    String message = request.queryParams("msgcontents");   //Requesting the input from html, the two names must coincide or this WILL FAIL
+                    m1 = new Message(message);          //Create a new Message Object passing the Users input. trying to set m1.msgContents = message gave a Null Exception Error
+                    msgArray.add(m1);                   // adding the new Message object containing the UI to the Array list
                     response.redirect("/");
                     return "";
                 }
