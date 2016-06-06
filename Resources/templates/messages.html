@@ -15,8 +15,14 @@
     <ol>                            <!--The Values are all Stored in a Hashamp and are pulled out by mustache -->
         {{#messages}}               <!--'messages' is the Key for the Value that contains the ArrayList storing the messages -->
         <li>{{msgContent}}</li>     <!--'msgContent' is the Key for the Value that is storing the Message object -->
-        {{/messages}}               <!-- This is the equivalent of a for each loop to extract the individual messages
+        {{/messages}}               <!-- This is the equivalent of a for each loop to extract the individual messages from the array list in the hashmap -->
     </ol>
+
+    <br>
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+
+    </form>
 
 
 </body>
