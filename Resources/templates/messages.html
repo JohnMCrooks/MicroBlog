@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" name="message" placeholder="Write a message"/>
+    <button name="submit">Submit</button>
+
+    <h3>Messages by {{name}}</h3>   <!-- doubly curly brackets here call the name from the hashmap that stores the Userinput.-->
+
+    <ol type="1">
+        {{#messages}}
+        <li>{{message}}</li>
+        {{/messages}}
+    </ol>
+
+
+</body>
+</html>
