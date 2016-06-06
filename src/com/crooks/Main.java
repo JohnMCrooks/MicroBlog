@@ -1,5 +1,6 @@
 package com.crooks;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -9,7 +10,9 @@ import java.util.HashMap;
 
 public class Main {
     static User user;
+    static Message m1;
     static ArrayList<User> userList = new ArrayList<>();
+    static ArrayList<Message> msgArray = new ArrayList<>();
 
     public static void main(String[] args) {
         Spark.init();
@@ -23,7 +26,7 @@ public class Main {
                     } else{
                         m.put("name", user.username);
                         m.put("password",user.password);
-                        m.put("messages", user.messageList);
+                        m.put("messages", msgArray.toString());
                         return new ModelAndView(m, "messages.html");
                     }
                 },
@@ -48,19 +51,11 @@ public class Main {
                 "/create-message",
                 (request, response) -> {
                     String message = request.queryParams("message");
-                    user.messageList.add(message);
-                    response.redirect("messages.html");
+                    msgArray.add(m1);
+                    response.redirect("/");
                     return "";
                 }
         );
-
-
-
-
-
-
-
-
 
     }  //End of main method
 }   //End of Main Class
