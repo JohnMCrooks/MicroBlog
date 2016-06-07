@@ -61,7 +61,7 @@ public class Main {
 
                     }else{
                         user = new User(password, username);           //Create new user with new input
-                        userList.add(user);                            //Add user to the ArrayList of Users
+                       // userList.add(user);                            //Add user to the ArrayList of Users
                         passMap.put(user.username, user);              //And to the hashmap for future reference.
                         m.put("name", user.username);
                     }
