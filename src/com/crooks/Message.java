@@ -15,7 +15,13 @@ public class Message {
         return  msgContent;
     }
 
+    public String getMsgContent() {
+        return msgContent;
+    }
+
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
     }
+
+
 }

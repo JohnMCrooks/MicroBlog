@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class User {
     String password;
     String username;
-    ArrayList<String> messageList;
+    ArrayList<Message> messageList = new ArrayList<>();
 
     public User(String password, String username) {
         this.password = password;
@@ -29,5 +29,18 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Message> getMessageList() {
+        return messageList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", messageList=" + messageList +
+                '}';
     }
 }

@@ -8,21 +8,50 @@
 
 </head>
 <body>
+<header>
+    <h1>Micro-Blogger</h1>
+</header>
     <br>
     <br>
     <form action="/create-message" method="post">
-        <input type="text" name="msgcontents" placeholder="Write a message"/>
+        <input type="text" name="msgcontents" placeholder="Write a message" autofocus/>
         <button name="submit">Submit</button>
     </form>
-
+<section>
     <h3>Messages by {{name}}</h3>   <!-- double curly brackets here call the name from the hashmap that stores the Userinput.-->
 
-    <ol>                            <!--The Values are all Stored in a Hashamp and are pulled out by mustache -->
-        {{#messages}}               <!--'messages' is the Key for the Value that contains the ArrayList storing the messages -->
-        <li>{{msgContent}}</li>     <!--'msgContent' is the Key for the Value that is storing the Message object -->
-        {{/messages}}               <!-- This is the equivalent of a for each loop to extract the individual messages from the array list in the hashmap -->
+    <ol>                            <!--The Values are all Stored in a HashMap and are pulled out by mustache -->
+        {{#messageList}}               <!--'messages' is the Key for the Value that contains the ArrayList storing the messages -->
+        <li>{{msgContent}} </li>     <!--'msgContent' is the Key for the Value that is storing the Message object -->
+        {{/messageList}}               <!-- This is the equivalent of a for each loop to extract the individual messages from the array list in the hashmap -->
     </ol>
+</section>
+<section>
+<h5>
+    Which Message would you like to delete?<br>
+</h5>
 
+    <form action="/delete-message" method="post">
+        <input type="number" name="id" placeholder="Message #"/>
+        <button type="submit">Delete</button>
+
+    </form>
+
+</section>
+
+<section padding="">
+    <h5>
+        Want to edit a message? Go right ahead...<br>
+    </h5>
+
+    <form action="/edit-message" method="post">
+        <input type="number" name="id2" placeholder="Message #"/>
+        <input type="text" name="newMessage" placeholder="Edited Message"/>
+        <button type="submit">Update Message</button>
+
+    </form>
+
+</section>
     <br>
     <form action="/logout" method="post">
         <button type="submit">Logout</button>
