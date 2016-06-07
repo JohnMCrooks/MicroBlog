@@ -12,11 +12,11 @@ import java.util.HashMap;
 public class Main {
     static User user;
     static Message m1;
-    static String masterPassword = "goku";
     static ArrayList<User> userList = new ArrayList<>();
     static ArrayList<Message> msgArray = new ArrayList<>();
     public static void main(String[] args) {
         HashMap m = new HashMap();
+        HashMap<String, User> passMap = new HashMap<String, User>();
         Spark.init();
         Spark.get(
             "/",
@@ -28,7 +28,7 @@ public class Main {
                 } else{
 
                     m.put("name", user.username);
-                    m.put("password",masterPassword);
+                    m.put("password",user.password);
                     m.put("messages",msgArray);
                     m.put("msgContent", m1);
                     return new ModelAndView(m, "messages.html");
@@ -50,51 +50,26 @@ public class Main {
 
                     String username = request.queryParams("username");      //Take Username input
                     String password = request.queryParams("password");      //Take Password input
-                    if(userList.size()>0){
-                        for (User user : userList) {
-                            if (username.equals(user.username)){
-                                if (password.equals(masterPassword)) {
-                                    user = new User(user.getPassword(),user.getUsername());
-                                    response.redirect("/post-list");                         // Continue along to the messages page...
-                                    return "";
-                                } else {
-                                    System.out.println("Incorrect Password Muchacho");
-                                    response.redirect("/");
-                                    return "";
-                                }
-                            } else {
-                                user = new User(masterPassword, username);           //Create new user with new input
-                                userList.add(user);                                  //Add user to the ArrayList of Users
-                                response.redirect("/");                               //refresh to the main page
-                                return "";
-                            }
+
+                    if(passMap.containsKey(username)){
+                        if(passMap.get(username).password.equals(password)){
+                            response.redirect("/post-list");                  // Continue along to the messages page...
+                            return "";
+                        }else{
+                            Spark.halt("Wrong password Bro, Go back and try again.");
                         }
+
                     }else{
-                        user = new User(masterPassword, username);           //Create new user with new input
-                        userList.add(user);                                  //Add user to the ArrayList of Users
+                        user = new User(password, username);           //Create new user with new input
+                        userList.add(user);                            //Add user to the ArrayList of Users
+                        passMap.put(user.username, user);              //And to the hashmap for future reference.
+                        m.put("name", user.username);
                     }
 
-                    response.redirect("/");
+                    response.redirect("/post-list");
                     return "";
                 });
 
-
-//                    if (userList.contains(tempUser)){                     //If the username is in the ArrayList already
-//                        if(masterPassword.equals(password)){              // and the passwords are the same,
-//                            response.redirect("/");                         // Continue along to the messages page...
-//                            return "";
-//                        }else{                                              //Otherwise
-////                            invalidPassword = true;                       //TODO Figure out how toGo to the Error Page
-//                            System.out.println("-------Incorrect PASSOWRD-------");
-//                            response.redirect( "index.html");
-//                            return "";
-//                        }
-//                    }else{                                                  //OR.... If it's a new user
-//                        user = new User(masterPassword, username);                 //Create new user with new input
-//                        userList.add(user); }                               //Add user to the ArrayList of Users
-//
-//                    response.redirect("/");                                 //refresh to the main page
-//                    return "";
         Spark.post(
                 "/create-message",
                 (request, response) -> {
