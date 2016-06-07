@@ -9,6 +9,8 @@ import spark.template.mustache.MustacheTemplateEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static spark.Spark.staticFileLocation;
+
 public class Main {
     static User user;
     static Message m1;
@@ -17,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         HashMap m = new HashMap();
         HashMap<String, User> passMap = new HashMap<String, User>();
+        staticFileLocation("/public");
         Spark.init();
         Spark.get(
             "/",
